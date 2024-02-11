@@ -22,39 +22,30 @@ func writeFinancialsToFile(ebt, profit, ratio float64) error {
 
 func main() {
 	revenue, err := getInputValue("Revenue: ")
-	if err != nil {
-		printError(err)
-		return
-	}
+	printError(err)
 
 	expenses, err := getInputValue("Expenses: ")
-	if err != nil {
-		printError(err)
-		return
-	}
+	printError(err)
+
 	taxRate, err := getInputValue("Tax Rate: ")
-	if err != nil {
-		printError(err)
-		return
-	}
+	printError(err)
 
 	ebt, profit, ratio := calculateEbtProfitAndRatio(revenue, expenses, taxRate)
 
 	// store calculated results
 	err = writeFinancialsToFile(ebt, profit, ratio)
-	if err != nil {
-		printError(err)
-		return
-	}
+	printError(err)
 
 	fmt.Printf("EBT: %.2f\nProfit: %.2f\nRatio: %.2f\n", ebt, profit, ratio)
 }
 
 func printError(err error) {
-	fmt.Println("ERROR")
-	fmt.Println(err)
-	fmt.Println("---------------")
-	panic("You can't continue.")
+	if err != nil {
+		fmt.Println("ERROR")
+		fmt.Println(err)
+		fmt.Println("---------------")
+		panic("You can't continue.")
+	}
 }
 
 func getInputValue(text string) (float64, error) {
